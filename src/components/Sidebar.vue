@@ -1,11 +1,17 @@
 <template>
   <div id="sidebar">
     <div class="icons">
-      <router-link to="/note/1" title="笔记"><i class="iconfont icon-note"></i></router-link>
-      <router-link to="/notebooks" title="笔记本"><i class="iconfont icon-notebook"></i></router-link>
-      <router-link to="/trash/2" title="回收站"><i class="iconfont icon-trash"></i></router-link>
-      
-      <div class="logout" >
+      <router-link to="/note/1" title="笔记"
+        ><i class="iconfont icon-note"></i
+      ></router-link>
+      <router-link to="/notebooks" title="笔记本"
+        ><i class="iconfont icon-notebook"></i
+      ></router-link>
+      <router-link to="/trash/2" title="回收站"
+        ><i class="iconfont icon-trash"></i
+      ></router-link>
+
+      <div class="logout">
         <i class="iconfont icon-logout"></i>
       </div>
     </div>
@@ -13,11 +19,33 @@
 </template>
 
 <script>
-export default {
-    
-}
+export default {};
 </script>
 
 <style scoped>
- 
+#sidebar {
+  position: relative;
+  text-align: center;
+  background-color: #2c333c;
+  width: 56px;
+  
+}
+.icons a {
+  padding: 6px 0;
+  display: block;
+}
+.icons .router-link-active {
+  background-color: #5e6266;
+}
+.iconfont {
+  color: #fff;
+}
+.logout {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+
+
+}
 </style>
