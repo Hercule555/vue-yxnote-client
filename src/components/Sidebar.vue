@@ -20,33 +20,38 @@
 </template>
 
 <script>
-import avatar from './Avatar.vue';
+import avatar from "./Avatar.vue";
 export default {
-  components: { avatar }
+  components: { avatar },
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 #sidebar {
   position: relative;
   text-align: center;
   background-color: #2c333c;
   width: 56px;
+  .icons {
+    margin-top: 15px;
+    a {
+      padding: 6px 0;
+      display: block;
+    }
+    .router-link-active {
+      background-color: #5e6266;
+    }
+    .iconfont {
+      color: #fff;
+    }
+    .logout {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+    }
+  }
 }
-.icons a {
-  padding: 6px 0;
-  display: block;
-}
-.icons .router-link-active {
-  background-color: #5e6266;
-}
-.iconfont {
-  color: #fff;
-}
-.logout {
-  position: absolute;
-  bottom: 20px;
-  width: 100%;
-  text-align: center;
-}
+
+
 </style>
