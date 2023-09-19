@@ -1,5 +1,6 @@
 <template>
   <div id="sidebar">
+    <avatar />
     <div class="icons">
       <router-link to="/note/1" title="笔记"
         ><i class="iconfont icon-note"></i
@@ -19,7 +20,10 @@
 </template>
 
 <script>
-export default {};
+import avatar from './Avatar.vue';
+export default {
+  components: { avatar }
+};
 </script>
 
 <style scoped>
@@ -28,7 +32,6 @@ export default {};
   text-align: center;
   background-color: #2c333c;
   width: 56px;
-  
 }
 .icons a {
   padding: 6px 0;
@@ -45,7 +48,5 @@ export default {};
   bottom: 20px;
   width: 100%;
   text-align: center;
-
-
 }
 </style>
