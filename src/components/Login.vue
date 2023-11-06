@@ -8,19 +8,37 @@
           <div class="form">
             <h3 @click="showRegister">创建账户</h3>
             <transition name="slide">
-              <div :class="{show: isShowRegister}" class="register">
-                <input type="text" v-model="register.username" placeholder="用户名" />
-                <input type="password" v-model="register.password" placeholder="密码" />
-                <p :class="{error: register.isError}">{{register.notice}}</p>
+              <div :class="{ show: isShowRegister }" class="register">
+                <input
+                  type="text"
+                  v-model="register.username"
+                  placeholder="用户名"
+                />
+                <input
+                  type="password"
+                  v-model="register.password"
+                  placeholder="密码"
+                />
+                <p :class="{ error: register.isError }">
+                  {{ register.notice }}
+                </p>
                 <div class="button" @click="onRegister">创建账号</div>
               </div>
             </transition>
             <h3 @click="showLogin">登录</h3>
             <transition name="slide">
-              <div :class="{show: isShowLogin}" class="login">
-                <input type="text" v-model="login.username" placeholder="输入用户名" />
-                <input type="password" v-model="login.password" placeholder="输入密码" />
-                <p :class="{error: login.isError}">{{login.notice}}</p>
+              <div :class="{ show: isShowLogin }" class="login">
+                <input
+                  type="text"
+                  v-model="login.username"
+                  placeholder="输入用户名"
+                />
+                <input
+                  type="password"
+                  v-model="login.password"
+                  placeholder="输入密码"
+                />
+                <p :class="{ error: login.isError }">{{ login.notice }}</p>
                 <div class="button" @click="onLogin">登录</div>
               </div>
             </transition>
@@ -32,12 +50,12 @@
 </template>
 
 <script>
-import request from '@/helpers/request'
+import request from "@/helpers/request";
 
-request('/auth/login', 'POST', {username: 'hunger', password: '123456'})
-  .then( data => { 
-    console.log(data) 
-  }) 
+request('/auth/')
+  .then( data => {
+    console.log(data)
+  })
 
 export default {
   name: "Login",
@@ -46,77 +64,91 @@ export default {
       isShowLogin: true,
       isShowRegister: false,
       login: {
-        username: 'hunger',
-        password: '123456',
-        notice: '请输入用户名和密码',
-        isError: false
+        username: "",
+        password: "",
+        notice: "请输入用户名和密码",
+        isError: false,
       },
       register: {
-        username: '',
-        password: '',
-        notice: '请记住账户和密码',
-        isError: false
-      }
+        username: "",
+        password: "",
+        notice: "请记住账户和密码",
+        isError: false,
+      },
     };
   },
   methods: {
     showLogin() {
-      this.isShowLogin = true
-      this.isShowRegister = false
+      this.isShowLogin = true;
+      this.isShowRegister = false;
     },
     showRegister() {
-      this.isShowRegister = true
-      this.isShowLogin = false
+      this.isShowRegister = true;
+      this.isShowLogin = false;
     },
     onRegister() {
-      let result1 = this.validUsername(this.register.username)
-      if(!result1.isValid) {
-        this.register.isError = true
-        this.register.notice = result1.notice
-        return
+      let result1 = this.validUsername(this.register.username);
+      if (!result1.isValid) {
+        this.register.isError = true;
+        this.register.notice = result1.notice;
+        return;
       }
-      let result2 = this.validPassword(this.register.password)
-      if(!result2.isValid) {
-        this.register.isError = true
-        this.register.notice = result2.notice
-        return
+      let result2 = this.validPassword(this.register.password);
+      if (!result2.isValid) {
+        this.register.isError = true;
+        this.register.notice = result2.notice;
+        return;
       }
-      this.register.isError = false
-      this.register.notice= '创建成功'
-      console.log('开始注册,用户名是:',this.register.username, '密码是：', this.register.password )
-      
+      this.register.isError = false;
+      this.register.notice = "创建成功";
+      console.log(
+        `start register..., username:${this.register.username}, password:${this.register.password}`
+      );
+      request('/auth/register', 'POST', {
+        username: this.register.username,
+        password: this.register.password,
+      }).then((data) => {
+          console.log(data);
+         });
     },
     onLogin() {
-      let result1 = this.validUsername(this.login.username)
-      if(!result1.isValid) {
-        this.login.isError = true
-        this.login.notice = result1.notice
-        return
+      let result1 = this.validUsername(this.login.username);
+      if (!result1.isValid) {
+        this.login.isError = true;
+        this.login.notice = result1.notice;
+        return;
       }
-      let result2 = this.validPassword(this.login.password)
-      if(!result2.isValid) {
-        this.login.isError = true
-        this.login.notice = result2.notice
-        return
+      let result2 = this.validPassword(this.login.password);
+      if (!result2.isValid) {
+        this.login.isError = true;
+        this.login.notice = result2.notice;
+        return;
       }
-      this.login.isError = false
-      this.login.notice= '登录成功'
-      console.log('开始登录,用户名是:',this.login.username, '密码是：', this.login.password )
+      this.login.isError = false;
+      this.login.notice = "登录成功";
+      console.log(
+        `start login..., username:${this.login.username}, password:${this.login.password}`
+      );
+      request('/auth/login', 'POST', {
+        username: this.login.username,
+        password: this.login.password,
+      }).then((data) => {
+          console.log(data);
+        });
     },
     validUsername(username) {
       return {
         isValid: /^[a-zA-Z_0-9\u4e00-\u9fa5]{3,15}$/.test(username),
-        notice: '用户名必须是3~15个字符, 限于字母、数字、下划线'
-      }
+        notice: "用户名必须是3~15个字符, 限于字母、数字、下划线",
+      };
     },
     validPassword(password) {
       return {
         isValid: /^.{6,16}$/.test(password),
-        notice: '密码长度必须是6~16个字符'
-      }
-    }
-    
-  }
+        notice: "密码长度必须是6~16个字符",
+      };
+    },
+  },
 };
 </script>
 
@@ -151,18 +183,18 @@ h1 {
   margin: 0 auto;
   display: flex;
   border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0,  0, .33);
-  transition: all .3 ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  transition: all 0.3 ease;
   font-family: Arial, Helvetica, sans-serif;
-  
+
   .main {
     flex: 1;
     background: #a3c7af url(~@/assets/re.png) center center no-repeat;
-    background-size: contain;  
+    background-size: contain;
   }
   .form {
     width: 270px;
-    border-left: 1px solid #ccc ;
+    border-left: 1px solid #ccc;
     overflow: hidden;
 
     h3 {
@@ -186,12 +218,13 @@ h1 {
       margin-top: 15px;
       cursor: pointer;
     }
-    .login,.register {
+    .login,
+    .register {
       padding: 0px 20px;
       border-top: 1px solid #eee;
       height: 0px;
       overflow: hidden;
-      transition: height .4s;
+      transition: height 0.4s;
       &.show {
         height: 190px;
       }
@@ -220,8 +253,8 @@ h1 {
         color: red;
       }
     }
-    .login { 
-        border-top: 0;
+    .login {
+      border-top: 0;
     }
   }
 }

@@ -13,7 +13,7 @@
       ></router-link>
 
       <div class="logout">
-        <i class="iconfont icon-logout"></i>
+        <i class="iconfont icon-logout" @click="logout"></i>
       </div>
     </div>
   </div>
@@ -21,8 +21,19 @@
 
 <script>
 import avatar from "./Avatar.vue";
+import request from '@/helpers/request'
+
 export default {
   components: { avatar },
+  methods: {
+    logout() {
+      console.log('logout')
+      request('/auth/logout')
+       .then(data => {
+         console.log(data)
+       })
+    }
+  }
 };
 </script>
 
@@ -43,12 +54,14 @@ export default {
     }
     .iconfont {
       color: #fff;
+      font-size: 20px;
     }
     .logout {
       position: absolute;
       bottom: 20px;
       width: 100%;
       text-align: center;
+      cursor: pointer;
     }
   }
 }
