@@ -21,14 +21,14 @@
 
 <script>
 import avatar from "./Avatar.vue";
-import request from '@/helpers/request'
+import Auth from '@/apis/auth'
 
 export default {
   components: { avatar },
   methods: {
     logout() {
       console.log('logout')
-      request('/auth/logout')
+      Auth.logout()
        .then(data => {
          console.log(data)
        })
