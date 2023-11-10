@@ -1,7 +1,10 @@
 import axios from "axios"
+import configBaseURL from "./config-baseURL"
+
+console.log(configBaseURL)
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
-axios.defaults.baseURL = 'https://note-server.hunger-valley.com'
+axios.defaults.baseURL = configBaseURL.baseURL
 axios.defaults.withCredentials = true
 
 export default function request(url, type = 'GET', data = {}) {
