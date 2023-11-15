@@ -1,15 +1,28 @@
 <template>
-  <span :title="user.username">{{slug}}</span> 
+  <span :title="username">{{ slug }}</span>
 </template>
 
 <script>
+import { computed } from 'vue'
+import Auth from '@/apis/auth'
+
 export default {
   data() {
     return {
-      user: {
-        username: 'hunger' 
-      },
-      slug: 'H'
+      username: '未',
+    }
+  },
+  created(){
+    Auth.get_info()
+     .then(res => {
+       if(res.isLogin) {
+         this.username = res.data.username
+       }
+     })
+  },
+  computed: {
+    slug() {
+      return this.username[0]
     }
   }
 }
@@ -31,5 +44,4 @@ span {
   border-radius: 50%;
   text-transform: uppercase;
 }
-
 </style>
