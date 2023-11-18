@@ -10,6 +10,14 @@ export default {
     return {
       msg: '笔记详情页'
     }
+  },
+  created() {
+    Auth.get_info()
+     .then(res => {
+       if(!res.isLogin) {
+         this.$router.push({path: 'login'})
+       }
+     })
   }
 }
 </script>
