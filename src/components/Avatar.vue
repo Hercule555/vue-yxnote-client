@@ -5,6 +5,7 @@
 <script>
 import { computed } from 'vue'
 import Auth from '@/apis/auth'
+import Bus from '@/helpers/bus'
 
 export default {
   data() {
@@ -13,6 +14,10 @@ export default {
     }
   },
   created(){
+    Bus.$on('userInfo', user => {
+      this.username = user.username
+    })
+
     Auth.get_info()
      .then(res => {
        if(res.isLogin) {
