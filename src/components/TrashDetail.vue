@@ -5,7 +5,10 @@
 </template>
 
 <script>
+import Auth from "@/apis/auth"
+
 export default {
+
   data() {
     return {
       msg: '回收站详情页'
